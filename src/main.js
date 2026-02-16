@@ -27,7 +27,7 @@ app.get('/health', (req, res) => {
 app.use('/', typedocumentsRouter);
 app.use('/', employeeRouter);
 
-// 1. Manejo de errores en rutas (Express lo atrapa automáticamente si usas try/catch en handlers)
+// 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
   console.error('Error capturado en Express:', err.stack);
   res.status(500).json({
