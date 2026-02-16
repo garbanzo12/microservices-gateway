@@ -9,6 +9,7 @@ dotenv.config();
 import typedocumentsRouter from './microservices/typedocuments/src/router.js';
 import employeeRouter from './microservices/employees/src/router.js';
 import companiesRouter from './microservices/companies/src/router.js';
+import ceconameRouter from './microservices/CecoName/src/router.js';
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/health', (req, res) => {
 app.use('/', typedocumentsRouter);
 app.use('/', employeeRouter);
 app.use('/', companiesRouter);
+app.use('/', ceconameRouter);
 
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
@@ -55,6 +57,7 @@ app.listen(PORT, () => {
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/typedocuments');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/employee');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/companies');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/ceconame');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });
