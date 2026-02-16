@@ -11,6 +11,7 @@ import employeeRouter from './microservices/employees/src/router.js';
 import companiesRouter from './microservices/companies/src/router.js';
 import ceconameRouter from './microservices/CecoName/src/router.js';
 import employeecontractsRouter from './microservices/employeecontracts/src/router.js';
+import employeesupportsRouter from './microservices/employeesupports/src/router.js';
 
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/', employeeRouter);
 app.use('/', companiesRouter);
 app.use('/', ceconameRouter);
 app.use('/', employeecontractsRouter);
+app.use('/', employeesupportsRouter);
 
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
@@ -61,6 +63,7 @@ app.listen(PORT, () => {
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/companies');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/ceconame');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/eContract');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/employeesupport');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });
