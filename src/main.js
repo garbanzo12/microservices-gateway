@@ -8,6 +8,7 @@ dotenv.config();
 
 import typedocumentsRouter from './microservices/typedocuments/src/router.js';
 import employeeRouter from './microservices/employees/src/router.js';
+import companiesRouter from './microservices/companies/src/router.js';
 
 
 const app = express();
@@ -26,6 +27,7 @@ app.get('/health', (req, res) => {
 
 app.use('/', typedocumentsRouter);
 app.use('/', employeeRouter);
+app.use('/', companiesRouter);
 
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
@@ -52,6 +54,7 @@ app.listen(PORT, () => {
   console.log(`\n🚀 Servidor unificado corriendo en http://localhost:${PORT}`);
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/typedocuments');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/employee');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/companies');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });

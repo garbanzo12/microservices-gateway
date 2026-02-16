@@ -38,7 +38,7 @@ router.use(async (req, res, next) => {
 });
 
 
-//Endpoints de companies 
+//Endpoints de employees 
 
 
 // En router.js de typedocuments
