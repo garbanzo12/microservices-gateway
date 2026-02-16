@@ -39,6 +39,14 @@ router.use(async (req, res, next) => {
 
 
 //Endpoints de companies 
+
+
+// En router.js de typedocuments
+// setTimeout(() => {
+//   throw new Error('Error asíncrono fuera de ruta - debería matar el proceso');
+// }, 5000);
+
+
 router.get('/employee', (req, res) => employeeController.getAll(req, res));
 router.get('/employee/:id', (req, res) => employeeController.getById(req, res));
 export default router;
