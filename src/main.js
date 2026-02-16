@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import typedocumentsRouter from './microservices/typedocuments/src/router.js';
+import employeeRouter from './microservices/employees/src/router.js';
 
 
 const app = express();
@@ -14,7 +15,7 @@ const app = express();
 app.use(express.json());              
 // app.use(morgan('dev'));               
 
-// Opcional: un endpoint de health check general
+// endpoint de health check general
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -23,11 +24,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Monta cada microservicio en su prefijo de ruta
-// El prefijo puede ser '/typedocuments', '/api/typedocuments', o lo que prefieras
 app.use('/', typedocumentsRouter);
-// app.use('/companies', companiesRouter);
-// app.use('/api', otroRouter);  // ejemplo si quieres agruparlos bajo /api
+app.use('/', employeeRouter);
 
 // Puerto único para todo el proyecto
 const PORT = process.env.PORT || 3000;
@@ -35,6 +33,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`\n🚀 Servidor unificado corriendo en http://localhost:${PORT}`);
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/typedocuments');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/employee');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });
