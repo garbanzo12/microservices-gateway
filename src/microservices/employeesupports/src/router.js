@@ -30,7 +30,7 @@ router.use(async (req, res, next) => {
   }
   next();
 });
-//Endpoints de companies 
+//Endpoints de employeesupport 
 router.get('/employeesupport', (req, res) => employeeSupportsController.getAll(req, res));
 router.get('/employeesupport/:id', (req, res) => employeeSupportsController.getById(req, res));
 

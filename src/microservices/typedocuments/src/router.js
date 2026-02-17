@@ -39,6 +39,7 @@ router.use(async (req, res, next) => {
   next();
 });
 
+//Endpoints de typedocuments 
 router.get('/typedocuments', (req, res) => typeDocumentController.getAll(req, res));
 router.get('/typedocuments/:id', (req, res) => typeDocumentController.getById(req, res));
 

@@ -34,7 +34,7 @@ const getCecoNameByIdUseCase = new GetCecoNameById(repo);
   next();
 });
 
-//Endpoints de companies 
+//Endpoints de ceconame 
 router.get('/ceconame', (req, res) => CecoameController.getAll(req, res));
 router.get('/ceconame/:id', (req, res) => CecoameController.getById(req, res));
 

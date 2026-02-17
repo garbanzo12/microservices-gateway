@@ -33,7 +33,7 @@ router.use(async (req, res, next) => {
   next();
 });
 
-//Endpoints de companies 
+//Endpoints de lookupdetails 
 router.get('/lookupdetails', (req, res) => lookupDetailsController.getAll(req, res));
 router.get('/lookupdetails/:id', (req, res) => lookupDetailsController.getById(req, res));
 export default router;
