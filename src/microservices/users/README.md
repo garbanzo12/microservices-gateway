@@ -1,45 +1,41 @@
 # companies-service
-Este es un microservicio de Employees para DBGERH_Talent
+Este es un microservicio de Users para DBGERH_Talent
 
 
 
 # Estructura de las carpetas
-EMPLOYEES
+Users
 │
-├── dist/
-├── node_modules/
 │
 ├── src/
 │   │
 │   ├── application/
 │   │   └── use-cases/
-│   │       ├── GetEmployeeById.js
-│   │       └── GetEmployees.js
+│   │       ├── GetUsersById.js
+│   │       └── GetUserss.js
 │   │
 │   ├── domain/
 │   │   ├── entities/
-│   │   │   └── Employee.js
+│   │   │   └── Users.js
 │   │   │
 │   │   └── repositories/
-│   │       └── EmployeeRepository.js
+│   │       └── UsersRepository.js
 │   │
 │   ├── infrastructure/
-│   │   ├── database/
+│   │   └──  database/
 │   │        └── typeorm/
 │   │           ├── entities/
-│   │           │   └── EmployeeEntity.js
+│   │           │   └── UsersEntity.js
 │   │           │
 │   │           └── repositories/
-│   │                └── EmployeeRepositoryImpl.js
+│   │               └── UsersRepositoryImpl.js
 │   │   
 │   │   
 │   │
 │   ├── http/
 │   │   └── controllers/
-│   │       └── EmployeeController.js
+│   │       └── UsersController.js
 │   │
-│   │
-│   └── router.js
+│   └── main.js
 │
-├── README.md
-
+└── README.md
