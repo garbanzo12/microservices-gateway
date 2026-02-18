@@ -1,38 +1,38 @@
 # companies-service
-Este es un microservicio de Menus para DBGERH_Talent
+Este es un microservicio de Roles para DBGERH_Talent
 
 
 # Estructura de las carpetas
-Menus
+Roles
 │
 ├── src/
 │   │
 │   ├── application/
 │   │   └── use-cases/
-│   │       ├── GetMenusById.js
-│   │       └── GetMenus.js
+│   │       ├── GetRolesById.js
+│   │       └── GetRoles.js
 │   │
 │   ├── domain/
 │   │   ├── entities/
-│   │   │   └── Menus.js
+│   │   │   └── Roles.js
 │   │   │
 │   │   └── repositories/
-│   │       └── MenusRepository.js
+│   │       └── RolesRepository.js
 │   │
 │   ├── infrastructure/
 │   │   ├── database/
 │   │       └── typeorm/
 │   │           ├── entities/
-│   │           │   └── MenusEntity.js
+│   │           │   └── RolesEntity.js
 │   │           │
 │   │           └── repositories/
-│   │               └── MenusRepositoryImpl.js
+│   │               └── RolesRepositoryImpl.js
 │   │   
 │   │   
 │   │
 │   ├── http/
 │   │   └── controllers/
-│   │       └── MenusController.js
+│   │       └── RolesController.js
 │   │
 │   │
 │   └── router.js
