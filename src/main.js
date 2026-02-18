@@ -15,6 +15,7 @@ import employeesupportsRouter from './microservices/employeesupports/src/router.
 import lookupdetailsRouter from './microservices/lookupdetails/src/router.js';
 import lookupgroupsRouter from './microservices/lookupgroups/src/router.js';
 import officesRouter from './microservices/offices/src/router.js';
+import usersRouter from './microservices/users/src/router.js';
 
 
 const app = express();
@@ -40,6 +41,7 @@ app.use('/', employeesupportsRouter);
 app.use('/', lookupdetailsRouter);
 app.use('/', lookupgroupsRouter);
 app.use('/', officesRouter);
+app.use('/', usersRouter);
 
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
@@ -73,6 +75,7 @@ app.listen(PORT, () => {
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/lookupdetails');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/lookupgroups');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/offices');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/users');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });
