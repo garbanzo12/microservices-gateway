@@ -1,43 +1,41 @@
 # companies-service
-Este es un microservicio de documentpermissions para DBGERH_Talent
+Este es un microservicio de Roles para DBGERH_Talent
 
 
 # Estructura de las carpetas
-documentpermissions
-│
-├── dist/
-├── node_modules/
+Roles
 │
 ├── src/
 │   │
 │   ├── application/
 │   │   └── use-cases/
-│   │       ├── GetCompanies.js
-│   │       └── GetdocumentpermissionsById.js
+│   │       ├── GetRolesById.js
+│   │       └── GetRoles.js
 │   │
 │   ├── domain/
 │   │   ├── entities/
-│   │   │   └── documentpermissions.js
+│   │   │   └── Roles.js
 │   │   │
 │   │   └── repositories/
-│   │       └── documentpermissionsRepository.js
+│   │       └── RolesRepository.js
 │   │
 │   ├── infrastructure/
 │   │   ├── database/
 │   │       └── typeorm/
 │   │           ├── entities/
-│   │           │   └── documentpermissionsEntity.js
+│   │           │   └── RolesEntity.js
 │   │           │
 │   │           └── repositories/
-│   │              └── documentpermissionsRepositoryImpl.js
+│   │               └── RolesRepositoryImpl.js
 │   │   
 │   │   
 │   │
 │   ├── http/
 │   │   └── controllers/
-│   │       └── documentpermissionsController.js
+│   │       └── RolesController.js
 │   │
 │   │
 │   └── router.js
 │
-├── README.md
+└── README.md
+
