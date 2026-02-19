@@ -18,6 +18,7 @@ import officesRouter from './microservices/offices/src/router.js';
 import usersRouter from './microservices/users/src/router.js';
 import menusRouter from './microservices/menus/src/router.js';
 import rolesRouter from './microservices/roles/src/router.js';
+import documentPermissionsRouter from './microservices/documentpermissions/src/router.js';
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/', officesRouter);
 app.use('/', usersRouter);
 app.use('/', menusRouter);
 app.use('/', rolesRouter);
+app.use('/', documentPermissionsRouter);
 
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
@@ -81,6 +83,7 @@ app.listen(PORT, () => {
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/users');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/menus');
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/roles');
+  console.log('  - TypeDocuments → http://localhost:' + PORT + '/documentpermissions');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
 });

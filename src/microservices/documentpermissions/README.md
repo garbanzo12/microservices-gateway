@@ -1,41 +1,43 @@
 # companies-service
-Este es un microservicio de Roles para DBGERH_Talent
+Este es un microservicio de companies para DBGERH_Talent
 
 
 # Estructura de las carpetas
-Roles
+COMPANIES
+│
+├── dist/
+├── node_modules/
 │
 ├── src/
 │   │
 │   ├── application/
 │   │   └── use-cases/
-│   │       ├── GetRolesById.js
-│   │       └── GetRoles.js
+│   │       ├── GetCompanies.js
+│   │       └── GetCompanyById.js
 │   │
 │   ├── domain/
 │   │   ├── entities/
-│   │   │   └── Roles.js
+│   │   │   └── Company.js
 │   │   │
 │   │   └── repositories/
-│   │       └── RolesRepository.js
+│   │       └── CompanyRepository.js
 │   │
 │   ├── infrastructure/
 │   │   ├── database/
 │   │       └── typeorm/
 │   │           ├── entities/
-│   │           │   └── RolesEntity.js
+│   │           │   └── CompanyEntity.js
 │   │           │
 │   │           └── repositories/
-│   │               └── RolesRepositoryImpl.js
+│   │              └── CompanyRepositoryImpl.js
 │   │   
 │   │   
 │   │
 │   ├── http/
 │   │   └── controllers/
-│   │       └── RolesController.js
+│   │       └── CompanyController.js
 │   │
 │   │
 │   └── router.js
 │
-└── README.md
-
+├── README.md
