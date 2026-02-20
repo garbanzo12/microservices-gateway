@@ -40,6 +40,67 @@ router.use(async (req, res, next) => {
 
 //Endpoints de roles 
 
+// ... imports y lazy initialization iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: Menu Roles
+ *   description: Asignación de menús a roles
+ */
+
+/**
+ * @swagger
+ * /menuroles:
+ *   get:
+ *     summary: Obtiene todas las asignaciones de menús a roles activos
+ *     tags: [Menu Roles]
+ *     responses:
+ *       200:
+ *         description: Lista de relaciones menú-rol
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   menuId:
+ *                     type: integer
+ *                   roleId:
+ *                     type: integer
+ *                   state:
+ *                     type: integer
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/menuroles', (req, res) => menuRolesController.getAll(req, res));
+
+/**
+ * @swagger
+ * /menuroles/{id}:
+ *   get:
+ *     summary: Obtiene una asignación menú-rol por ID
+ *     tags: [Menu Roles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asignación encontrada
+ *       404:
+ *         description: Asignación no encontrada
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/menuroles/:id', (req, res) => menuRolesController.getById(req, res));
+
 export default router;

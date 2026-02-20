@@ -41,12 +41,72 @@ router.use(async (req, res, next) => {
 //Endpoints de employees 
 
 
-// En router.js de typedocuments
-// setTimeout(() => {
-//   throw new Error('Error asíncrono fuera de ruta - debería matar el proceso');
-// }, 5000);
 
+// ... imports y lazy init iguales ...
 
+/**
+ * @swagger
+ * tags:
+ *   name: Employees
+ *   description: Operaciones relacionadas con los empleados
+ */
+
+/**
+ * @swagger
+ * /employee:
+ *   get:
+ *     summary: Obtiene todos los empleados activos
+ *     tags: [Employees]
+ *     responses:
+ *       200:
+ *         description: Lista de empleados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   UserId:
+ *                     type: integer
+ *                   Name:
+ *                     type: string
+ *                   Document:
+ *                     type: string
+ *                   UserName:
+ *                     type: string
+ *                   Email:
+ *                     type: string
+ *                   State:
+ *                     type: integer
+ *                   CreatedAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/employee', (req, res) => employeeController.getAll(req, res));
+
+/**
+ * @swagger
+ * /employee/{id}:
+ *   get:
+ *     summary: Obtiene un empleado por ID
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Empleado encontrado
+ *       404:
+ *         description: Empleado no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/employee/:id', (req, res) => employeeController.getById(req, res));
+
 export default router;

@@ -31,7 +31,64 @@ router.use(async (req, res, next) => {
   next();
 });
 //Endpoints de employeesupport 
+// ... imports y lazy init iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: Employee Supports
+ *   description: Soporte o ayudas para empleados
+ */
+
+/**
+ * @swagger
+ * /employeesupport:
+ *   get:
+ *     summary: Obtiene todos los registros de soporte para empleados
+ *     tags: [Employee Supports]
+ *     responses:
+ *       200:
+ *         description: Lista de soportes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   // ... agrega más campos según tu entidad real
+ *                   state:
+ *                     type: integer
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/employeesupport', (req, res) => employeeSupportsController.getAll(req, res));
+
+/**
+ * @swagger
+ * /employeesupport/{id}:
+ *   get:
+ *     summary: Obtiene un soporte de empleado por ID
+ *     tags: [Employee Supports]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Soporte encontrado
+ *       404:
+ *         description: Soporte no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/employeesupport/:id', (req, res) => employeeSupportsController.getById(req, res));
 
 export default router;

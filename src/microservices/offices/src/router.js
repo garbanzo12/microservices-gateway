@@ -40,6 +40,68 @@ router.use(async (req, res, next) => {
 
 //Endpoints de Offices 
 
+// ... imports y lazy initialization iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: Offices
+ *   description: Oficinas o sedes de la organización
+ */
+
+/**
+ * @swagger
+ * /offices:
+ *   get:
+ *     summary: Obtiene todas las oficinas activas
+ *     tags: [Offices]
+ *     responses:
+ *       200:
+ *         description: Lista de oficinas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                     example: "Sede Principal Bogotá"
+ *                   address:
+ *                     type: string
+ *                   state:
+ *                     type: integer
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/offices', (req, res) => officesController.getAll(req, res));
+
+/**
+ * @swagger
+ * /offices/{id}:
+ *   get:
+ *     summary: Obtiene una oficina por su ID
+ *     tags: [Offices]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Oficina encontrada
+ *       404:
+ *         description: Oficina no encontrada
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/offices/:id', (req, res) => officesController.getById(req, res));
+
 export default router;

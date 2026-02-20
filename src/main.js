@@ -3,7 +3,8 @@ import 'reflect-metadata';
 import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-
+import swaggerUi  from 'swagger-ui-express';
+import { specs } from './swagger.js';   // ajusta la ruta
 dotenv.config();
 
 import typedocumentsRouter from './microservices/typedocuments/src/router.js';
@@ -51,7 +52,7 @@ app.use('/', rolesRouter);
 app.use('/', documentPermissionsRouter);
 app.use('/', UserRolesRouter);
 app.use('/', MenuRolesRouter);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 // 1. Manejo de errores en rutas 
 app.use((err, req, res, next) => {
   console.error('Error capturado en Express:', err.stack);
@@ -92,4 +93,5 @@ app.listen(PORT, () => {
   console.log('  - TypeDocuments → http://localhost:' + PORT + '/menuroles');
   // Agrega más líneas cuando montes otros microservicios
   console.log('  - Health check  → http://localhost:' + PORT + '/health');
+  console.log('  - Api-docs check  → http://localhost:' + PORT + '/api-docs');
 });

@@ -40,6 +40,72 @@ router.use(async (req, res, next) => {
 
 //Endpoints de Offices 
 
+// ... imports y lazy initialization iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: Usuarios del sistema
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Obtiene todos los usuarios activos
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   UserId:
+ *                     type: integer
+ *                   Name:
+ *                     type: string
+ *                     example: "Juan Pérez"
+ *                   Document:
+ *                     type: string
+ *                   UserName:
+ *                     type: string
+ *                   Email:
+ *                     type: string
+ *                   State:
+ *                     type: integer
+ *                   CreatedAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/users', (req, res) => usersController.getAll(req, res));
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Obtiene un usuario por su ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/users/:id', (req, res) => usersController.getById(req, res));
+
 export default router;

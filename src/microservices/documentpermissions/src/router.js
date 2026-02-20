@@ -38,6 +38,71 @@ router.use(async (req, res, next) => {
 
 //Endpoints de documentpermissions 
 
+// ... imports y lazy init iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: Document Permissions
+ *   description: Permisos sobre documentos
+ */
+
+/**
+ * @swagger
+ * /documentpermissions:
+ *   get:
+ *     summary: Obtiene todos los permisos de documentos activos
+ *     tags: [Document Permissions]
+ *     responses:
+ *       200:
+ *         description: Lista de permisos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   userId:
+ *                     type: integer
+ *                   typeDocumentId:
+ *                     type: integer
+ *                   visualize:
+ *                     type: boolean
+ *                   eliminate:
+ *                     type: boolean
+ *                   upload:
+ *                     type: boolean
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/documentpermissions', (req, res) => documentPermissionsController.getAll(req, res));
+
+/**
+ * @swagger
+ * /documentpermissions/{id}:
+ *   get:
+ *     summary: Obtiene un permiso de documento por ID
+ *     tags: [Document Permissions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Permiso encontrado
+ *       404:
+ *         description: Permiso no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/documentpermissions/:id', (req, res) => documentPermissionsController.getById(req, res));
+
 export default router;

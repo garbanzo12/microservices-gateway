@@ -40,6 +40,67 @@ router.use(async (req, res, next) => {
 
 //Endpoints de roles 
 
+// ... imports y lazy initialization iguales ...
+
+/**
+ * @swagger
+ * tags:
+ *   name: User Roles
+ *   description: Asignación de roles a usuarios
+ */
+
+/**
+ * @swagger
+ * /userroles:
+ *   get:
+ *     summary: Obtiene todas las asignaciones de roles a usuarios activos
+ *     tags: [User Roles]
+ *     responses:
+ *       200:
+ *         description: Lista de relaciones usuario-rol
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   userId:
+ *                     type: integer
+ *                   roleId:
+ *                     type: integer
+ *                   state:
+ *                     type: integer
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/userroles', (req, res) => userRolesController.getAll(req, res));
+
+/**
+ * @swagger
+ * /userroles/{id}:
+ *   get:
+ *     summary: Obtiene una asignación usuario-rol por ID
+ *     tags: [User Roles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asignación encontrada
+ *       404:
+ *         description: Asignación no encontrada
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get('/userroles/:id', (req, res) => userRolesController.getById(req, res));
+
 export default router;
