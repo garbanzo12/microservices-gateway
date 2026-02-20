@@ -28,9 +28,9 @@ router.use(async (req, res, next) => {
             getEmployeeUseCase,
             getEmployeeByIdUseCase
         );
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ Employees microservicio inicializado');
     } catch (err) {
-      console.error('❌ Error al inicializar TypeDocuments:', err);
+      console.error('❌ Error al inicializar Employees:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
     }
   }

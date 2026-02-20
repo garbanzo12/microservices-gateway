@@ -26,7 +26,7 @@ router.use(async (req, res, next) => {
         geteContractsUseCase,
         geteContractsByIdUseCase
       );
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ EployeContracts microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
@@ -62,9 +62,10 @@ router.use(async (req, res, next) => {
  *                 properties:
  *                   id:
  *                     type: integer
+ *                     example : 1
  *                   name:
  *                     type: string
- *                     example: "Contrato indefinido"
+ *                     example: "1"
  *                   state:
  *                     type: integer
  *                   createdAt:

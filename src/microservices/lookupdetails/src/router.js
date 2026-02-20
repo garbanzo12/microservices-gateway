@@ -24,9 +24,9 @@ router.use(async (req, res, next) => {
         const getLookupDetailsUseCase = new GetLookupDetails(repo);
         const getLookupDetailsByIdUseCase = new GetLookupDetailsById(repo);
       lookupDetailsController = new LookupDetailsController(getLookupDetailsUseCase, getLookupDetailsByIdUseCase);
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ Lookupdetails microservicio inicializado');
     } catch (err) {
-      console.error('❌ Error al inicializar TypeDocuments:', err);
+      console.error('❌ Error al inicializar Lookupdetails:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
     }
   }

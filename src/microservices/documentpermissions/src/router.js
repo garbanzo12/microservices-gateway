@@ -65,6 +65,7 @@ router.use(async (req, res, next) => {
  *                 properties:
  *                   id:
  *                     type: integer
+ *               
  *                   userId:
  *                     type: integer
  *                   typeDocumentId:

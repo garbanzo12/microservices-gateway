@@ -26,9 +26,9 @@ router.use(async (req, res, next) => {
      );
 
 //Endpoints de companies 
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ Companies microservicio inicializado');
     } catch (err) {
-      console.error('❌ Error al inicializar TypeDocuments:', err);
+      console.error('❌ Error al inicializar Companies:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
     }
   }

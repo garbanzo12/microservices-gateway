@@ -25,7 +25,7 @@ const repo = new CecoNameRepositoryImpl(pool);
 const getCecoNameUseCase = new GetCecoNames(repo);
 const getCecoNameByIdUseCase = new GetCecoNameById(repo);
  CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase);
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ Ceconame microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
@@ -58,7 +58,6 @@ const getCecoNameByIdUseCase = new GetCecoNameById(repo);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/GenericLookup'
  *                 type: object
  *                 properties:
  *                   id:

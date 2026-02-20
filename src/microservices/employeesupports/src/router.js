@@ -22,7 +22,7 @@ router.use(async (req, res, next) => {
         const getEmployeeSupportsUseCase = new GetEmployeeSupports(repo);
         const getEmployeeSupportsByIdUseCase = new GetEmployeeSupportsById(repo);
       employeeSupportsController = new EmployeeSupportsController(getEmployeeSupportsUseCase, getEmployeeSupportsByIdUseCase);
-      console.log('✅ TypeDocuments microservicio inicializado');
+      console.log('✅ ESupports microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
       return res.status(500).json({ error: 'Error interno al iniciar módulo' });
@@ -58,7 +58,7 @@ router.use(async (req, res, next) => {
  *                 properties:
  *                   id:
  *                     type: integer
- *                   // ... agrega más campos según tu entidad real
+ *                     example: 1
  *                   state:
  *                     type: integer
  *                   createdAt:
@@ -81,6 +81,7 @@ router.get('/employeesupport', (req, res) => employeeSupportsController.getAll(r
  *         required: true
  *         schema:
  *           type: integer
+ *           example: 1 
  *     responses:
  *       200:
  *         description: Soporte encontrado
