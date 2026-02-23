@@ -33,20 +33,20 @@ router.use(async (req, res, next) => {
   next();
 });
 
-// ... imports y lazy init iguales ...
+//Endpoints de LookupDetails 
 
 /**
  * @swagger
  * tags:
  *   name: Lookup Details
- *   description: Detalles de lookups (valores detallados de tablas maestras)
+ *   description: Valores detallados de tablas maestras (detalles de lookups)
  */
 
 /**
  * @swagger
  * /lookupdetails:
  *   get:
- *     summary: Obtiene todos los detalles de lookup activos
+ *     summary: Lista todos los detalles de lookup activos
  *     tags: [Lookup Details]
  *     responses:
  *       200:
@@ -56,17 +56,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   name:
- *                     type: string
- *                   state:
- *                     type: integer
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/LookupDetail'
  *       500:
  *         description: Error interno del servidor
  */
@@ -84,14 +74,18 @@ router.get('/lookupdetails', (req, res) => lookupDetailsController.getAll(req, r
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 1
  *     responses:
  *       200:
  *         description: Detalle encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LookupDetail'
  *       404:
  *         description: Detalle no encontrado
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/lookupdetails/:id', (req, res) => lookupDetailsController.getById(req, res));
-
 export default router;

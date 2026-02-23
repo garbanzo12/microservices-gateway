@@ -40,43 +40,29 @@ router.use(async (req, res, next) => {
 
 //Endpoints de roles 
 
-// ... imports y lazy initialization iguales ...
 
 /**
  * @swagger
  * tags:
  *   name: Roles
- *   description: Roles de usuario en el sistema
+ *   description: Gestión de roles del sistema (perfiles de usuario con permisos)
  */
 
 /**
  * @swagger
  * /roles:
  *   get:
- *     summary: Obtiene todos los roles activos
+ *     summary: Obtiene la lista de todos los roles activos
  *     tags: [Roles]
  *     responses:
  *       200:
- *         description: Lista de roles
+ *         description: Lista de roles obtenida correctamente
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   name:
- *                     type: string
- *                     example: "Administrador"
- *                   description:
- *                     type: string
- *                   state:
- *                     type: integer
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/Roles'               
  *       500:
  *         description: Error interno del servidor
  */
@@ -86,7 +72,7 @@ router.get('/roles', (req, res) => rolesController.getAll(req, res));
  * @swagger
  * /roles/{id}:
  *   get:
- *     summary: Obtiene un rol por su ID
+ *     summary: Obtiene la información de un rol específico por su ID
  *     tags: [Roles]
  *     parameters:
  *       - in: path
@@ -94,9 +80,14 @@ router.get('/roles', (req, res) => rolesController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 1
  *     responses:
  *       200:
  *         description: Rol encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Roles'
  *       404:
  *         description: Rol no encontrado
  *       500:
