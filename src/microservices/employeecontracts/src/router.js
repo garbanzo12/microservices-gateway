@@ -36,19 +36,18 @@ router.use(async (req, res, next) => {
 });
 
 // ... imports y lazy init iguales ...
-
 /**
  * @swagger
  * tags:
  *   name: Employee Contracts
- *   description: Tipos o contratos de empleados
+ *   description: Contratos laborales de empleados
  */
 
 /**
  * @swagger
  * /eContract:
  *   get:
- *     summary: Obtiene todos los contratos de empleados activos
+ *     summary: Lista todos los contratos de empleados activos
  *     tags: [Employee Contracts]
  *     responses:
  *       200:
@@ -58,19 +57,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example : 1
- *                   name:
- *                     type: string
- *                     example: "1"
- *                   state:
- *                     type: integer
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/EmployeeContract'
  *       500:
  *         description: Error interno del servidor
  */
@@ -80,7 +67,7 @@ router.get('/eContract', (req, res) => econtractController.getAll(req, res));
  * @swagger
  * /eContract/{id}:
  *   get:
- *     summary: Obtiene un contrato de empleado por ID
+ *     summary: Obtiene un contrato por ID
  *     tags: [Employee Contracts]
  *     parameters:
  *       - in: path
@@ -88,14 +75,18 @@ router.get('/eContract', (req, res) => econtractController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 1
  *     responses:
  *       200:
  *         description: Contrato encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EmployeeContract'
  *       404:
  *         description: Contrato no encontrado
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/eContract/:id', (req, res) => econtractController.getById(req, res));
-
 export default router;

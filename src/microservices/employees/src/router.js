@@ -42,20 +42,18 @@ router.use(async (req, res, next) => {
 
 
 
-// ... imports y lazy init iguales ...
-
 /**
  * @swagger
  * tags:
  *   name: Employees
- *   description: Operaciones relacionadas con los empleados
+ *   description: Empleados del sistema
  */
 
 /**
  * @swagger
  * /employee:
  *   get:
- *     summary: Obtiene todos los empleados activos
+ *     summary: Lista todos los empleados activos
  *     tags: [Employees]
  *     responses:
  *       200:
@@ -65,23 +63,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   UserId:
- *                     type: integer
- *                   Name:
- *                     type: string
- *                   Document:
- *                     type: string
- *                   UserName:
- *                     type: string
- *                   Email:
- *                     type: string
- *                   State:
- *                     type: integer
- *                   CreatedAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/Employee'
  *       500:
  *         description: Error interno del servidor
  */
@@ -99,14 +81,18 @@ router.get('/employee', (req, res) => employeeController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 1
  *     responses:
  *       200:
  *         description: Empleado encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Employee'
  *       404:
  *         description: Empleado no encontrado
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/employee/:id', (req, res) => employeeController.getById(req, res));
-
 export default router;

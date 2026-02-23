@@ -31,39 +31,28 @@ router.use(async (req, res, next) => {
   next();
 });
 //Endpoints de employeesupport 
-// ... imports y lazy init iguales ...
-
 /**
  * @swagger
  * tags:
  *   name: Employee Supports
- *   description: Soporte o ayudas para empleados
+ *   description: Documentos de soporte / anexos de empleados
  */
 
 /**
  * @swagger
  * /employeesupport:
  *   get:
- *     summary: Obtiene todos los registros de soporte para empleados
+ *     summary: Lista todos los documentos de soporte activos
  *     tags: [Employee Supports]
  *     responses:
  *       200:
- *         description: Lista de soportes
+ *         description: Lista de documentos de soporte
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   state:
- *                     type: integer
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/EmployeeSupport'
  *       500:
  *         description: Error interno del servidor
  */
@@ -73,7 +62,7 @@ router.get('/employeesupport', (req, res) => employeeSupportsController.getAll(r
  * @swagger
  * /employeesupport/{id}:
  *   get:
- *     summary: Obtiene un soporte de empleado por ID
+ *     summary: Obtiene un documento de soporte por ID
  *     tags: [Employee Supports]
  *     parameters:
  *       - in: path
@@ -81,15 +70,18 @@ router.get('/employeesupport', (req, res) => employeeSupportsController.getAll(r
  *         required: true
  *         schema:
  *           type: integer
- *           example: 1 
+ *         example: 1
  *     responses:
  *       200:
- *         description: Soporte encontrado
+ *         description: Documento encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EmployeeSupport'
  *       404:
- *         description: Soporte no encontrado
+ *         description: Documento no encontrado
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/employeesupport/:id', (req, res) => employeeSupportsController.getById(req, res));
-
 export default router;

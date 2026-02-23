@@ -35,42 +35,28 @@ router.use(async (req, res, next) => {
   }
   next();
 });
-
 /**
  * @swagger
  * tags:
- *   name: Tipos de Documento
- *   description: Operaciones relacionadas con los tipos de documento
+ *   name: TypeDocuments
+ *   description: Tipos de documentos requeridos / categorías documentales
  */
 
 /**
  * @swagger
  * /typedocuments:
  *   get:
- *     summary: Obtiene todos los tipos de documento activos
- *     tags: [Tipos de Documento]
+ *     summary: Lista todos los tipos de documentos activos
+ *     tags: [TypeDocuments]
  *     responses:
  *       200:
- *         description: Lista de tipos de documento
+ *         description: Lista de tipos de documentos
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   name:
- *                     type: string
- *                     example: Cédula de Ciudadanía
- *                   state:
- *                     type: integer
- *                     example: 1
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/TypeDocument'
  *       500:
  *         description: Error interno del servidor
  */
@@ -80,37 +66,26 @@ router.get('/typedocuments', (req, res) => typeDocumentController.getAll(req, re
  * @swagger
  * /typedocuments/{id}:
  *   get:
- *     summary: Obtiene un tipo de documento por su ID
- *     tags: [Tipos de Documento]
+ *     summary: Obtiene un tipo de documento por ID
+ *     tags: [TypeDocuments]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del tipo de documento
+ *         example: 1
  *     responses:
  *       200:
  *         description: Tipo de documento encontrado
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 name:
- *                   type: string
- *                 state:
- *                   type: integer
- *                 createdAt:
- *                   type: string
- *                   format: date-time
+ *               $ref: '#/components/schemas/TypeDocument'
  *       404:
  *         description: Tipo de documento no encontrado
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/typedocuments/:id', (req, res) => typeDocumentController.getById(req, res));
-
 export default router;

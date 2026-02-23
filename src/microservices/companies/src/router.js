@@ -38,19 +38,18 @@ router.use(async (req, res, next) => {
 
 //Endpoints de companies 
 
-
 /**
  * @swagger
  * tags:
  *   name: Companies
- *   description: Operaciones relacionadas con las compañías/empresas
+ *   description: Compañías / entidades legales
  */
 
 /**
  * @swagger
  * /companies:
  *   get:
- *     summary: Obtiene todas las compañías activas
+ *     summary: Lista todas las compañías activas
  *     tags: [Companies]
  *     responses:
  *       200:
@@ -60,20 +59,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   name:
- *                     type: string
- *                     example: "Empresa XYZ S.A."
- *                   state:
- *                     type: integer
- *                     example: 1
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/Company'
  *       500:
  *         description: Error interno del servidor
  */
@@ -83,7 +69,7 @@ router.get('/companies', (req, res) => companyController.getAll(req, res));
  * @swagger
  * /companies/{id}:
  *   get:
- *     summary: Obtiene una compañía por su ID
+ *     summary: Obtiene una compañía por ID
  *     tags: [Companies]
  *     parameters:
  *       - in: path
@@ -91,15 +77,18 @@ router.get('/companies', (req, res) => companyController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la compañía
+ *         example: 1
  *     responses:
  *       200:
  *         description: Compañía encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
  *       404:
  *         description: Compañía no encontrada
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/companies/:id', (req, res) => companyController.getById(req, res));
-
 export default router;

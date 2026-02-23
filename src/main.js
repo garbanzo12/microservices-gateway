@@ -4,7 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import swaggerUi  from 'swagger-ui-express';
-import { specs } from './swagger.js';   // ajusta la ruta
+import { specs } from './swagger/swagger.js';   // ajusta la ruta
 dotenv.config();
 
 import typedocumentsRouter from './microservices/typedocuments/src/router.js';
