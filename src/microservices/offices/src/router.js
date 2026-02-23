@@ -40,20 +40,18 @@ router.use(async (req, res, next) => {
 
 //Endpoints de Offices 
 
-// ... imports y lazy initialization iguales ...
-
 /**
  * @swagger
  * tags:
  *   name: Offices
- *   description: Oficinas o sedes de la organización
+ *   description: Oficinas / sedes
  */
 
 /**
  * @swagger
  * /offices:
  *   get:
- *     summary: Obtiene todas las oficinas activas
+ *     summary: Lista todas las oficinas activas
  *     tags: [Offices]
  *     responses:
  *       200:
@@ -63,20 +61,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   name:
- *                     type: string
- *                     example: "Sede Principal Bogotá"
- *                   address:
- *                     type: string
- *                   state:
- *                     type: integer
- *                   createdAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/Office'
  *       500:
  *         description: Error interno del servidor
  */
@@ -86,7 +71,7 @@ router.get('/offices', (req, res) => officesController.getAll(req, res));
  * @swagger
  * /offices/{id}:
  *   get:
- *     summary: Obtiene una oficina por su ID
+ *     summary: Obtiene una oficina por ID
  *     tags: [Offices]
  *     parameters:
  *       - in: path
@@ -94,14 +79,18 @@ router.get('/offices', (req, res) => officesController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 1
  *     responses:
  *       200:
  *         description: Oficina encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Office'
  *       404:
  *         description: Oficina no encontrada
  *       500:
  *         description: Error interno del servidor
  */
 router.get('/offices/:id', (req, res) => officesController.getById(req, res));
-
 export default router;

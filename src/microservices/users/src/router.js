@@ -39,21 +39,18 @@ router.use(async (req, res, next) => {
 
 
 //Endpoints de Offices 
-
-// ... imports y lazy initialization iguales ...
-
 /**
  * @swagger
  * tags:
  *   name: Users
- *   description: Usuarios del sistema
+ *   description: Usuarios del sistema (autenticación y perfiles)
  */
 
 /**
  * @swagger
  * /users:
  *   get:
- *     summary: Obtiene todos los usuarios activos
+ *     summary: Lista todos los usuarios activos
  *     tags: [Users]
  *     responses:
  *       200:
@@ -63,24 +60,7 @@ router.use(async (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   UserId:
- *                     type: integer
- *                   Name:
- *                     type: string
- *                     example: "Juan Pérez"
- *                   Document:
- *                     type: string
- *                   UserName:
- *                     type: string
- *                   Email:
- *                     type: string
- *                   State:
- *                     type: integer
- *                   CreatedAt:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/schemas/User'
  *       500:
  *         description: Error interno del servidor
  */
@@ -90,7 +70,7 @@ router.get('/users', (req, res) => usersController.getAll(req, res));
  * @swagger
  * /users/{id}:
  *   get:
- *     summary: Obtiene un usuario por su ID
+ *     summary: Obtiene un usuario por ID
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -98,9 +78,14 @@ router.get('/users', (req, res) => usersController.getAll(req, res));
  *         required: true
  *         schema:
  *           type: integer
+ *         example: 3
  *     responses:
  *       200:
  *         description: Usuario encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: Usuario no encontrado
  *       500:
