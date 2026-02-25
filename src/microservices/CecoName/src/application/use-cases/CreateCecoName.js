@@ -1,3 +1,4 @@
+
 //Caso de uso de Crear un cecoName 
 export class CreateCecoName {
   constructor(CecoNameRepositoryCreate) {

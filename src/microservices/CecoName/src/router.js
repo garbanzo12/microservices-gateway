@@ -25,8 +25,8 @@ router.use(async (req, res, next) => {
 const repo = new CecoNameRepositoryImpl(pool);
 const getCecoNameUseCase = new GetCecoNames(repo);
 const getCecoNameByIdUseCase = new GetCecoNameById(repo);
-const createCecoNameUseCase = new CreateCecoName(repo);
- CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoNameUseCase);
+const createCecoName = new CreateCecoName(repo);
+ CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoName);
       console.log('✅ Ceconame microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
@@ -93,13 +93,12 @@ router.get('/ceconame', (req, res) => CecoameController.getAll(req, res));
 router.get('/ceconame/:id', (req, res) => CecoameController.getById(req, res));
 
 
+
 /**
  * @swagger
  * /ceconame:
  *   post:
- *     summary: Crea un nuevo centro de costo (CecoName)
- *     description: Registra un nuevo registro en la tabla dbo.CecoName.  
- *                  Requiere Cecocode y Name obligatorios. State por defecto es activo (true/1).
+ *     summary: Crea un nuevo centro de costo
  *     tags: [CecoName]
  *     requestBody:
  *       required: true
@@ -107,64 +106,22 @@ router.get('/ceconame/:id', (req, res) => CecoameController.getById(req, res));
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - Cecocode
- *               - Name
+ *             required: [Cecocode, Name]
  *             properties:
- *               Cecocode:
- *                 type: string
- *                 description: Código único del centro de costo (máx. 50 caracteres)
- *                 example: "CC-BOG-005"
- *               Name:
- *                 type: string
- *                 description: Nombre descriptivo del centro de costo
- *                 example: "Dirección Comercial Bogotá Sur"
- *               State:
- *                 type: boolean
- *                 description: Estado del registro (true = activo, false = inactivo)
- *                 default: true
- *                 example: true
- *               CreatedBy:
- *                 type: integer
- *                 nullable: true
- *                 description: ID del usuario que crea el registro (opcional)
- *                 example: 3
+ *               Cecocode: { type: string, example: "CC-BOG-008" }
+ *               Name:     { type: string, example: "Centro Logístico Occidente" }
+ *               State:    { type: boolean, example: true }
  *     responses:
  *       201:
- *         description: Centro de costo creado exitosamente
+ *         description: Creado
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/CecoName'
- *             example:
- *               Id: 45
- *               Cecocode: "CC-BOG-005"
- *               Name: "Dirección Comercial Bogotá Sur"
- *               State: true
- *               CreatedBy: 3
- *               CreatedAt: "2026-02-24T15:45:12.340Z"
- *               UpdatedBy: null
- *               UpdateAt: null
  *       400:
- *         description: Datos inválidos o faltantes (Cecocode o Name requeridos)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Cecocode es requerido"
+ *         description: Datos inválidos
  *       500:
- *         description: Error interno del servidor
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Error al crear el CecoName"
+ *         description: Error servidor
  */
-router.post('/ceconame', (req, res) => CecoameController.Create(req, res));
+router.post('/ceconame', (req, res) => CecoameController.create(req, res));
 export default router;

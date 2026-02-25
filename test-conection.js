@@ -1,20 +1,27 @@
-import { CecoNameRepositoryImpl } from './src/microservices/CecoName/src/infrastructure/database/typeorm/repositories/CecoNameRepositoryImpl.js';
+import sql from 'mssql';
 
-const repo = new CecoNameRepositoryImpl();
-
-async function test() {
+async function testConnection() {
   try {
-    const nuevo = await repo.Create({
-      Cecocode: "CC-TEST-999",
-      Name: "Centro de Prueba desde cero",
-      State: true,
-      CreatedBy: 3
+    const pool = await sql.connect({
+      user: 'app_microservice',           // prueba con usuario SQL si ya lo creaste
+      password: 'TuContraseñaSegura2025!',
+      server: '10.150.205.207',
+      database: 'DBGERH_Talent',
+      options: {
+        encrypt: true,
+        trustServerCertificate: true
+      }
     });
 
-    console.log('🎉 ÉXITO - Registro creado:', nuevo);
+    console.log('✅ Conexión exitosa!');
+    const result = await pool.request().query('SELECT TOP 1 * FROM dbo.CecoName');
+    console.log('Primer registro:', result.recordset[0]);
+
+    await pool.close();
   } catch (err) {
-    console.error('❌ Falló el test:', err.message);
+    console.error('❌ Falló la conexión:', err.message);
+    console.error(err.stack);
   }
 }
 
-test();
+testConnection();
