@@ -7,6 +7,7 @@ import poolPromise from '../../../shared/database/mssql-pool.js';
 import { CecoNameRepositoryImpl } from './infrastructure/database/typeorm/repositories/CecoNameRepositoryImpl.js';
 import { GetCecoNames } from './application/use-cases/GetCecoNames.js';
 import { GetCecoNameById } from './application/use-cases/GetCecoNameById.js';
+import { CreateCecoName } from './application/use-cases/CreateCecoName.js';
 import {CecoNameController} from './infrastructure/http/controllers/CecoNameController.js'
 dotenv.config();
 
@@ -24,7 +25,8 @@ router.use(async (req, res, next) => {
 const repo = new CecoNameRepositoryImpl(pool);
 const getCecoNameUseCase = new GetCecoNames(repo);
 const getCecoNameByIdUseCase = new GetCecoNameById(repo);
- CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase);
+const createCecoName = new CreateCecoName(repo);
+ CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoName);
       console.log('✅ Ceconame microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
@@ -89,4 +91,37 @@ router.get('/ceconame', (req, res) => CecoameController.getAll(req, res));
  *         description: Error interno del servidor
  */
 router.get('/ceconame/:id', (req, res) => CecoameController.getById(req, res));
+
+
+
+/**
+ * @swagger
+ * /ceconame:
+ *   post:
+ *     summary: Crea un nuevo centro de costo
+ *     tags: [CecoName]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [Cecocode, Name]
+ *             properties:
+ *               Cecocode: { type: string, example: "CC-BOG-008" }
+ *               Name:     { type: string, example: "Centro Logístico Occidente" }
+ *               State:    { type: boolean, example: true }
+ *     responses:
+ *       201:
+ *         description: Creado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CecoName'
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error servidor
+ */
+router.post('/ceconame', (req, res) => CecoameController.create(req, res));
 export default router;
