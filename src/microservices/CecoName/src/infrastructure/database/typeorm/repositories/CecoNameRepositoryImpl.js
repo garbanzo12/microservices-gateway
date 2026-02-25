@@ -1,12 +1,13 @@
 import { CecoName } from '../../../../domain/entities/CecoName.js';
 import  poolPromise  from '../../../../../../../shared/database/mssql-pool.js';
 import sql from 'mssql/msnodesqlv8.js';
+
 export class CecoNameRepositoryImpl {
     constructor() {
     }
 
     async findAll() {
-        const pool = await poolPromise;           
+        const pool = await poolPromise();           
         const result = await pool
         .request()
         .query(
