@@ -6,3 +6,7 @@ export class CecoNameRepositoryById {
   findById(id) {}
 }
 
+export class CecoNameRepositoryCreate {
+  Create(data) {}
+}
+

@@ -1,29 +1,23 @@
+// shared/database/mssql-pool.js (versión ODBC defensiva)
 import sql from 'mssql/msnodesqlv8.js';
-import dotenv from 'dotenv';
 import { config } from '../config/index.js';
-dotenv.config();
-//Conexion a la bd mediante las variables del archivo index.js de la carpeta config
-const dbconfig = {
-    server: config.database.server,
-    database: config.database.name,
-    connectionString: `Driver={ODBC Driver 18 for SQL Server};Server=${config.database.server};Database=${config.database.name};Trusted_Connection=yes;Encrypt=yes;TrustServerCertificate=yes;`,
-    driver: 'msnodesqlv8',
-    options: {
-        trustedConnection: true,
-        trustServerCertificate: true
-    }
-}
 
- const poolPromise = new sql.ConnectionPool(dbconfig)
-    .connect()
-    .then(pool => {
-        console.log('✅ Conectado a SQL Server (vía ODBC Nativo)');
-        return pool;
-    })
-    .catch(err => {
-        console.error('❌ Error creando el pool de mssql:', err);
-        // process.exit(1);
-    });
+let pool = null;
 
+const getPool = async () => {
+  if (pool && pool.connected) return pool;
 
-export default poolPromise;   
+  try {
+    const connectionString = `Driver={ODBC Driver 18 for SQL Server};Server=${config.database.server};Database=${config.database.name};Trusted_Connection=yes;Encrypt=yes;TrustServerCertificate=yes;`;
+
+    pool = await sql.connect(connectionString);
+
+    console.log('✅ Pool ODBC conectado (Trusted_Connection)');
+    return pool;
+  } catch (err) {
+    console.error('❌ Error en pool ODBC:', err.message);
+    throw err;
+  }
+};
+
+export default getPool;

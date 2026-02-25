@@ -1,9 +1,10 @@
 import pc from 'picocolors'; // Esta es una librería ligera de colores para colorear los codigos de respuesta (200, 400, etc)
 
 export class CecoNameController {
-  constructor(getCecoNameUseCase, getCecoNameByIdUseCase) {
+  constructor(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoNameUseCase) {
     this.getCecoNameUseCase = getCecoNameUseCase;
     this.getCecoNameByIdUseCase = getCecoNameByIdUseCase;
+    this.createCecoNameUseCase = createCecoNameUseCase;
   }
 
   // Este es un helper para centralizar el formato del log
@@ -54,6 +55,23 @@ export class CecoNameController {
       res.json(ceconame);
     } catch (error) {
       this.#log('error', `GET /ceconame/${id} - Error`, error.message);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+  Create = async (req, res) => {
+    try {
+      const created = await this.createCecoNameUseCase.execute(req.body);
+      
+      if (!created) {
+        this.#log('error', `POST /ceconame - No se pudo crear el registro`);
+        return res.status(400).json({ message: "No se pudo crear el CecoName" });
+      }
+
+      this.#log('success', `POST /ceconame - Petición exitosa`);
+      res.status(201).json(created);
+    } catch (error) {
+      this.#log('error', `POST /ceconame - Error`, error.message);
+      console.log("--------",req.body)
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
