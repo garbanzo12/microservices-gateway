@@ -5,4 +5,7 @@ export class EmployeeRepositoryFindAll {
 export class EmployeeRepositoryById {
   findById(id) {}
 }
+export class EmployeeRepositoryCreate{
+  create(data) {}
+}
 

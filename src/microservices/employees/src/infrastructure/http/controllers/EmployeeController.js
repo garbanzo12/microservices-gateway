@@ -1,9 +1,10 @@
 import pc from 'picocolors'; // Esta es una librería ligera de colores para colorear los codigos de respuesta (200, 400, etc)
 
 export class EmployeeController {
-  constructor(getEmployeeUseCase, getEmployeeByIdUseCase) {
+  constructor(getEmployeeUseCase, getEmployeeByIdUseCase,CreateEmployeeUseCase) {
     this.getEmployeeUseCase = getEmployeeUseCase;
     this.getEmployeeByIdUseCase = getEmployeeByIdUseCase;
+    this.CreateEmployeeUseCase = CreateEmployeeUseCase;
   }
 
   // Este es un helper para centralizar el formato del log
@@ -55,4 +56,22 @@ export class EmployeeController {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  
+  create = async (req, res) => {
+  try {
+    const created = await this.CreateEmployeeUseCase.execute(req.body);
+
+    if (!created) {
+      this.#log('error', `POST /employee - No se pudo crear el registro`);
+      return res.status(400).json({ message: "No se pudo crear el Employees" });
+    }
+
+    this.#log('success', `POST /employee - Creado exitosamente - ID: ${created.Id}`);
+    res.status(201).json(created);
+  } catch (error) {
+    this.#log('error', `POST /employee - Error`, error.message);
+    res.status(500).json({ message: "Error interno al crear Employees" });
+  }
+}
 }
