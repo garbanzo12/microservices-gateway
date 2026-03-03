@@ -4,7 +4,6 @@ export class CreateEmployees {
   }
 
   async execute(data) {
-    console.log(data)
     return await this.repository.create(data);
   }
 }
