@@ -7,6 +7,7 @@ import poolPromise from '../../../shared/database/mssql-pool.js';
 import { eContractRepositoryImpl } from './infrastructure/database/typeorm/repositories/eContractRepositoryImpl.js';
 import { GeteContracts } from './application/use-cases/GeteContracts.js';
 import { GeteContractsById } from './application/use-cases/GeteContractById.js';
+import { CreateContract } from './application/use-cases/CreateContract.js';
 import {eContractController} from './infrastructure/http/controllers/eContractController.js'
 dotenv.config();
 
@@ -22,9 +23,11 @@ router.use(async (req, res, next) => {
         const repo = new eContractRepositoryImpl(pool);
         const geteContractsUseCase = new GeteContracts(repo);
         const geteContractsByIdUseCase = new GeteContractsById(repo);
+        const createContract = new CreateContract(repo);
       econtractController = new eContractController(
         geteContractsUseCase,
-        geteContractsByIdUseCase
+        geteContractsByIdUseCase,
+        createContract
       );
       console.log('✅ EployeContracts microservicio inicializado');
     } catch (err) {
@@ -89,4 +92,37 @@ router.get('/eContract', (req, res) => econtractController.getAll(req, res));
  *         description: Error interno del servidor
  */
 router.get('/eContract/:id', (req, res) => econtractController.getById(req, res));
+
+
+
+/**
+ * @swagger
+ * /eContract:
+ *   post:
+ *     summary: Crea un nuevo contrato
+ *     tags: [CecoName]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [IdEmployee, ContractStartDate,ContractEndDate,IdCecoName,TypeOfContract]
+ *             properties:
+ *               Cecocode: { type: string, example: "CC-BOG-008" }
+ *               Name:     { type: string, example: "Centro Logístico Occidente" }
+ *               State:    { type: boolean, example: true }
+ *     responses:
+ *       201:
+ *         description: Creado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/employeecontracts'
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error servidor
+ */
+router.post('/eContract', (req, res) => econtractController.create(req, res));
 export default router;
