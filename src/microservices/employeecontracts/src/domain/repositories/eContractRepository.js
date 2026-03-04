@@ -5,4 +5,7 @@ export class eContractRepositoryFindAll {
 export class  eContractRepositoryById {
   findById(id) {}
 }
+export class  eContractRepositoryCreate {
+  create(data) {}
+}
 

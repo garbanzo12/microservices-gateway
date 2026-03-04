@@ -1,4 +1,4 @@
-export class CreateCecoName {
+export class CreateEmployees {
   constructor(repository) {
     this.repository = repository;
   }
