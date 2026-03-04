@@ -60,26 +60,26 @@ async create(data) {
             INSERTED.ContractEndDate,
             INSERTED.IdCecoName,
             INSERTED.TypeOfContract,
+            INSERTED.CreatedAt,
             INSERTED.CreatedBy
         VALUES 
             (@IdEmployee, @ContractStartDate, @ContractEndDate, @IdCecoName, @TypeOfContract, @CreatedBy)
     `);
 
     if (result.recordset.length === 0) {
-        console.log("paila")
         return null;
     }
 
     const row = result.recordset[0];
-    console.log(row)
     return new eContract({
     id:               row.Id,
-    idEmployee:       row.IdEmployee,
-    contractStartDate: row.ContractStartDate,
-    contractEndDate:  row.ContractEndDate,
-    idCecoName:       row.IdCecoName,
-    typeOfContract:   row.TypeOfContract,
-    createdBy:        row.CreatedBy,
+    idmeployee:       row.IdEmployee,
+    contractstartdate: row.ContractStartDate,
+    contrctenddate:  row.ContractEndDate,
+    idceconame:       row.IdCecoName,
+    typeofcontract:   row.TypeOfContract,
+    createdat:        row.CreatedAt,
+    creactedby:        row.CreatedBy,
     });
 }
 }

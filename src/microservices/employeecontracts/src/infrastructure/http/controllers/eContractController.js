@@ -63,13 +63,12 @@ export class eContractController {
   create = async (req, res) => {
   try {
     const created = await this.CreateContractsUseCase.execute(req.body);
-    console.log(created)
     if (!created) {
       this.#log('error', `POST /eContract - No se pudo crear el registro`);
       return res.status(400).json({ message: "No se pudo crear el CecoName" });
     }
 
-    this.#log('success', `POST /eContract - Creado exitosamente - ID: ${created.Id}`);
+    this.#log('success', `POST /eContract - Creado exitosamente - ID: ${created.id}`);
     res.status(201).json(created);
   } catch (error) {
     this.#log('error', `POST /eContract - Error`, error.message);
