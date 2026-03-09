@@ -7,7 +7,7 @@ export class CecoNameRepositoryImpl {
     }
 
     async findAll() {
-        const pool = await poolPromise();           
+        const pool = await poolPromise;           
         const result = await pool
         .request()
         .query(
