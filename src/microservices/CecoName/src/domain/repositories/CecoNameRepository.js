@@ -9,4 +9,7 @@ export class CecoNameRepositoryById {
 export class CecoNameRepositoryCreate {
   Create(data) {}
 }
+export class CecoNameRepositoryDelete {
+  Delete(id) {}
+}
 

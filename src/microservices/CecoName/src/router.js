@@ -8,6 +8,7 @@ import { CecoNameRepositoryImpl } from './infrastructure/database/typeorm/reposi
 import { GetCecoNames } from './application/use-cases/GetCecoNames.js';
 import { GetCecoNameById } from './application/use-cases/GetCecoNameById.js';
 import { CreateCecoName } from './application/use-cases/CreateCecoName.js';
+import { DeleteCeconameById } from './application/use-cases/DeleteCeconameById.js';
 import {CecoNameController} from './infrastructure/http/controllers/CecoNameController.js'
 dotenv.config();
 
@@ -26,7 +27,8 @@ const repo = new CecoNameRepositoryImpl(pool);
 const getCecoNameUseCase = new GetCecoNames(repo);
 const getCecoNameByIdUseCase = new GetCecoNameById(repo);
 const createCecoName = new CreateCecoName(repo);
- CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoName);
+const deleteCeconameById = new DeleteCeconameById(repo);
+ CecoameController = new CecoNameController(getCecoNameUseCase, getCecoNameByIdUseCase,createCecoName,deleteCeconameById);
       console.log('✅ Ceconame microservicio inicializado');
     } catch (err) {
       console.error('❌ Error al inicializar TypeDocuments:', err);
@@ -124,4 +126,60 @@ router.get('/ceconame/:id', (req, res) => CecoameController.getById(req, res));
  *         description: Error servidor
  */
 router.post('/ceconame', (req, res) => CecoameController.create(req, res));
+
+
+/**
+ * @swagger
+ * /ceconame/{id}:
+ *   delete:
+ *     summary: Elimina un centro de costo por su ID
+ *     description: Realiza la eliminación física de un registro de CecoName.  
+ *                  Retorna 204 cuando se elimina correctamente y 404 si no se encuentra.
+ *     tags: [CecoName]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del centro de costo a eliminar
+ *         schema:
+ *           type: integer
+ *           format: int32
+ *           example: 15
+ *     responses:
+ *       204:
+ *         description: Centro de costo eliminado correctamente (sin contenido)
+ *       404:
+ *         description: No se encontró el centro de costo con el ID proporcionado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "CecoName no encontrado"
+ *       400:
+ *         description: ID inválido (por ejemplo, no es un número)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "ID inválido"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Error al eliminar el centro de costo"
+ */
+router.delete('/ceconame/:id', (req, res) => CecoameController.delete(req, res));
+
+
 export default router;
