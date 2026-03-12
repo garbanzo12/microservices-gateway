@@ -1,10 +1,11 @@
 import pc from 'picocolors'; // Esta es una librería ligera de colores para colorear los codigos de respuesta (200, 400, etc)
 
 export class eContractController {
-  constructor(getAlleContractsUseCase, geteContractsByIdUseCase, CreateContractsUseCase) {
+  constructor(getAlleContractsUseCase, geteContractsByIdUseCase, CreateContractsUseCase, deleteeContractUseCase) {
     this.getAlleContractsUseCase = getAlleContractsUseCase;
     this.geteContractsByIdUseCase = geteContractsByIdUseCase;
     this.CreateContractsUseCase = CreateContractsUseCase;
+    this.deleteeContractUseCase = deleteeContractUseCase;
   }
 
   // Este es un helper para centralizar el formato del log
@@ -75,4 +76,44 @@ export class eContractController {
     res.status(500).json({ message: "Error interno al crear CecoName" });
   }
 }
+
+
+delete = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+
+    // Validación básica del ID
+    if (isNaN(id) || id <= 0) {
+      this.#log('warn', `DELETE /eContract/${req.params.id} - ID inválido`);
+      return res.status(400).json({ message: "El ID debe ser un número entero positivo" });
+    }
+
+    const deleted = await this.deleteeContractUseCase.execute(id);
+
+    if (!deleted) {
+      this.#log('warn', `DELETE /eContract/${id} - No encontrado`);
+      return res.status(404).json({ message: "CecoName no encontrado" });
+    }
+
+    this.#log(
+      'success',
+      `DELETE /ceconame/${id} - Eliminado exitosamente`,
+      {
+        Id: deleted.Id,
+        IdEmployee: deleted.IdEmployee,
+        ContractStartDate: deleted.ContractStartDate,
+        IdCecoName: !!deleted.IdCecoName,           
+        TypeOfContract: deleted.TypeOfContract,
+        CreatedBy: deleted.TypeOfContract,
+        CreatedAt: deleted.CreatedAt?.toISOString?.() || deleted.CreatedAt,
+        UpdatedBy: deleted.UpdatedBy,
+        UpdateAt: deleted.UpdateAt?.toISOString?.() || deleted.UpdateAt
+      }
+    );
+    res.status(204).json(deleted);
+  } catch (error) {
+    this.#log('error', `DELETE /eContract/${req.params.id || 'unknown'} - Error`, error.message);
+    res.status(500).json({ message: "Error interno al eliminar eContract" });
+  }
+}; 
 }

@@ -9,3 +9,7 @@ export class  eContractRepositoryCreate {
   create(data) {}
 }
 
+export class  eContractRepositoryDelete {
+  delete(id) {}
+}
+
