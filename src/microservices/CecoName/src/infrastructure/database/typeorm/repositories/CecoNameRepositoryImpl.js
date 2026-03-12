@@ -7,7 +7,7 @@ export class CecoNameRepositoryImpl {
     }
 
     async findAll() {
-        const pool = await poolPromise();           
+        const pool = await poolPromise;           
         const result = await pool
         .request()
         .query(
@@ -51,7 +51,12 @@ export class CecoNameRepositoryImpl {
     const request = pool.request();
 
     // Validaciones básicas
-    if (!data.Cecocode?.trim()) throw new Error("Cecocode es requerido");
+    if (data.Cecocode === undefined || data.Cecocode === null) {
+      throw new Error("Cecocode es requerido");
+    }    
+    if (!Number.isInteger(data.Cecocode)) {
+      throw new Error("Cecocode debe ser un número");
+    }
     if (!data.Name?.trim()) throw new Error("Name es requerido");
 
     request.input('Cecocode',   sql.Int,  data.Cecocode ?? null);
@@ -91,4 +96,48 @@ export class CecoNameRepositoryImpl {
       UpdateAt: row.UpdateAt
     });
   }
+
+
+/**
+ * Elimina un registro de CecoName por su ID
+ * @param {number} id - ID del registro a eliminar
+ * @returns {Promise<CecoName|null>} - Retorna el registro eliminado o null si no existía
+ */
+  async delete(id) {
+    const pool = await poolPromise;
+    const request = pool.request();
+
+    request.input('id', sql.Int, id);
+
+    const result = await request.query(`
+        DELETE FROM dbo.CecoName
+        OUTPUT 
+            DELETED.Id,
+            DELETED.Cecocode,
+            DELETED.Name,
+            DELETED.State,
+            DELETED.CreatedBy,
+            DELETED.CreatedAt,
+            DELETED.UpdatedBy,
+            DELETED.UpdateAt
+        WHERE Id = @id
+    `);
+
+    if (result.recordset.length === 0) {
+        return null;
+    }
+
+    const row = result.recordset[0];
+
+    return new CecoName({
+        Id: row.Id,
+        Cecocode: row.Cecocode,
+        Name: row.Name,
+        State: row.State,
+        CreatedBy: row.CreatedBy,
+        CreatedAt: row.CreatedAt,
+        UpdatedBy: row.UpdatedBy,
+        UpdateAt: row.UpdateAt
+    });
+}
 }
