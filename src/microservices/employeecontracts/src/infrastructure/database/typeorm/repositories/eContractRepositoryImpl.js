@@ -82,4 +82,51 @@ async create(data) {
     creactedby:        row.CreatedBy,
     });
 }
+
+
+
+/**
+ * Elimina un registro de Econtract por su ID
+ * @param {number} id - ID del registro a eliminar
+ * @returns {Promise<eContract|null>} - Retorna el registro eliminado o null si no existía
+ */
+  async delete(id) {
+    const pool = await poolPromise;
+    const request = pool.request();
+
+    request.input('id', sql.Int, id);
+
+    const result = await request.query(`
+        DELETE FROM dbo.EmployeeContracts
+        OUTPUT  
+          DELETED.Id,
+          DELETED.IdEmployee,
+          DELETED.ContractStartDate,
+          DELETED.ContractEndDate,
+          DELETED.IdCecoName,
+          DELETED.TypeOfContract,
+          DELETED.CreatedAt,
+          DELETED.CreatedBy,
+          DELETED.UpdatedAt,
+          DELETED.UpdatedBy
+        WHERE Id = @id`
+        );
+
+    if (result.recordset.length === 0) {
+        return null;
+    }
+
+    const row = result.recordset[0];
+
+    return new eContract({
+    id:               row.Id,
+    idmeployee:       row.IdEmployee,
+    contractstartdate: row.ContractStartDate,
+    contrctenddate:  row.ContractEndDate,
+    idceconame:       row.IdCecoName,
+    typeofcontract:   row.TypeOfContract,
+    createdat:        row.CreatedAt,
+    creactedby:        row.CreatedBy,
+    });
+}
 }

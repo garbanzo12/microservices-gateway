@@ -8,6 +8,7 @@ import { eContractRepositoryImpl } from './infrastructure/database/typeorm/repos
 import { GeteContracts } from './application/use-cases/GeteContracts.js';
 import { GeteContractsById } from './application/use-cases/GeteContractById.js';
 import { CreateContract } from './application/use-cases/CreateContract.js';
+import { DeleteEcontractById } from './application/use-cases/DeleteeContract.js';
 import {eContractController} from './infrastructure/http/controllers/eContractController.js'
 dotenv.config();
 
@@ -24,10 +25,14 @@ router.use(async (req, res, next) => {
         const geteContractsUseCase = new GeteContracts(repo);
         const geteContractsByIdUseCase = new GeteContractsById(repo);
         const createContract = new CreateContract(repo);
+        const deleteEcontractById = new DeleteEcontractById(repo);
+
       econtractController = new eContractController(
         geteContractsUseCase,
         geteContractsByIdUseCase,
-        createContract
+        createContract,
+        deleteEcontractById,
+        
       );
       console.log('✅ EployeContracts microservicio inicializado');
     } catch (err) {
@@ -150,4 +155,27 @@ router.get('/eContract/:id', (req, res) => econtractController.getById(req, res)
  *         description: Error interno del servidor
  */
 router.post('/eContract', (req, res) => econtractController.create(req, res));
+
+
+/**
+ * @swagger
+ * /eContract/{id}:
+ *   delete:
+ *     summary: Elimina un contrato de empleado
+ *     tags: [Employee Contracts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Eliminado
+ *       404:
+ *         description: No encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.delete('/eContract/:id', (req, res) => econtractController.delete(req, res));
 export default router;
